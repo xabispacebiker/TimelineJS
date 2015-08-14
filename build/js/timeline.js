@@ -1205,7 +1205,6 @@ if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
 			full_long: "mmm d',' yyyy 'at' hh:MM TT",
 			full_long_small_date: "hh:MM TT'<br/><small>mmm d',' yyyy'</small>'"
 		},
-			
 		month: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 		month_abbr: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
 		day: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -1215,6 +1214,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
 			
 		//B.C.
 		bc_format: {
+                        caption: " B.C.",
 			year: "yyyy",
 			month_short: "mmm",
 			month: "mmmm yyyy",
@@ -1228,6 +1228,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
 			
 		setLanguage: function(lang) {
 			trace("SET DATE LANGUAGE");
+                        VMM.Date.bc_format              =       lang.bc_format;
 			VMM.Date.dateformats		=	lang.dateformats;	
 			VMM.Date.month				=	lang.date.month;
 			VMM.Date.month_abbr			=	lang.date.month_abbr;
@@ -1590,7 +1591,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
 						trace("YEAR IS BC");
 						bc_original	= bc_check[i];
 						bc_number	= Math.abs( parseInt(bc_check[i], 10) );
-						bc_string	= bc_number.toString() + " B.C.";
+						bc_string	= bc_number.toString() + VMM.Date.bc_format.caption;
 						_date		= _date.replace(bc_original, bc_string);
 					}
 				}
@@ -1605,7 +1606,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
 							trace("YEAR IS BC");
 							bc_original	= bc_check[j];
 							bc_number	= Math.abs( parseInt(bc_check[j], 10) );
-							bc_string	= bc_number.toString() + " B.C.";
+							bc_string	= bc_number.toString() + VMM.Date.bc_format.caption;
 							_date2			= _date2.replace(bc_original, bc_string);
 						}
 					}
@@ -2726,6 +2727,18 @@ if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
 			loading_content: "Loading Content",
 			loading: "Loading",
 			swipe_nav: "Swipe to Navigate"
+		},
+		bc_format: {
+                        caption: " B.C.",
+			year: "yyyy",
+			month_short: "mmm",
+			month: "mmmm yyyy",
+			full_short: "mmm d",
+			full: "mmmm d',' yyyy",
+			time_no_seconds_short: "h:MM TT",
+			time_no_seconds_small_date: "dddd', 'h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
+			full_long: "dddd',' mmm d',' yyyy 'at' hh:MM TT",
+			full_long_small_date: "hh:MM TT'<br/><small>'dddd',' mmm d',' yyyy'</small>'"
 		}
 	}
 };
@@ -8872,7 +8885,7 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 				
 				if (_is_year) {
 					if ( int_obj.date.getFullYear() < 0 ) {
-						int_obj.date_string = 	Math.abs( int_obj.date.getFullYear() ).toString() + " B.C.";
+						int_obj.date_string = 	Math.abs( int_obj.date.getFullYear() ).toString() + VMM.Date.bc_format.caption;
 					} else {
 						int_obj.date_string = int_obj.date.getFullYear();
 					}
